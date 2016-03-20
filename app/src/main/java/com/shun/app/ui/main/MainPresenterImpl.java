@@ -92,8 +92,9 @@ public class MainPresenterImpl extends BaseFragmentPresenter<MainView> implement
 
         if (view != null && backgroundUri != null) {
           view.setBackgroundUri(backgroundUri);
-          cancelBackgroundTimer();
         }
+
+        cancelBackgroundTimer();
       });
     }
   }

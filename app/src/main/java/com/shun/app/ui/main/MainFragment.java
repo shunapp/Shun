@@ -59,8 +59,6 @@ public class MainFragment extends BrowseFragment implements MainView {
   @Override public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
 
-    setAdapter(rowsAdapter);
-
     Activity activity = getActivity();
     backgroundManager = BackgroundManager.getInstance(activity);
     backgroundManager.attach(activity.getWindow());
@@ -69,7 +67,14 @@ public class MainFragment extends BrowseFragment implements MainView {
     getActivity().getWindowManager()
         .getDefaultDisplay()
         .getMetrics(displayMetrics);
+  }
 
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    setAdapter(rowsAdapter);
+
+    setOnSearchClickedListener(view -> presenter.search());
     setOnItemViewSelectedListener(this::onItemSelected);
     setOnItemViewClickedListener(this::onItemClicked);
 

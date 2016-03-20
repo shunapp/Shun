@@ -72,6 +72,19 @@ public class MovieDetailsFragment extends DetailsFragment implements MovieDetail
   @Override public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
 
+    Activity activity = getActivity();
+    backgroundManager = BackgroundManager.getInstance(activity);
+    backgroundManager.attach(activity.getWindow());
+
+    displayMetrics = new DisplayMetrics();
+    getActivity().getWindowManager()
+        .getDefaultDisplay()
+        .getMetrics(displayMetrics);
+  }
+
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
     Movie movie;
 
     if (savedInstanceState != null) {
@@ -91,16 +104,6 @@ public class MovieDetailsFragment extends DetailsFragment implements MovieDetail
     }
 
     presenter.setMovie(movie);
-
-    Activity activity = getActivity();
-    backgroundManager = BackgroundManager.getInstance(activity);
-    backgroundManager.attach(activity.getWindow());
-
-    displayMetrics = new DisplayMetrics();
-    getActivity().getWindowManager()
-        .getDefaultDisplay()
-        .getMetrics(displayMetrics);
-
     presenter.onCreated();
   }
 

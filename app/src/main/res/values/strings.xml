@@ -1,3 +1,5 @@
 <resources>
   <string name="app_name">Shun</string>
+
+  <string name="main.header.popular">Popular</string>
 </resources>

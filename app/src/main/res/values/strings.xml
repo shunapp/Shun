@@ -4,4 +4,5 @@
   <string name="main.header.popular">Popular</string>
   <string name="details.actions.watch">Watch</string>
   <string name="details.actions.trailer">Trailer</string>
+  <string name="search.headers.movies">Movies</string>
 </resources>

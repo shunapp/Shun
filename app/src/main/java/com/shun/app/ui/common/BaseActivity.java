@@ -10,6 +10,8 @@ import com.shun.app.AppComponent;
 import com.shun.app.domain.models.MediaItem;
 import com.shun.app.ui.details.DetailsActivity;
 import com.shun.app.ui.events.ShowMediaItemDetails;
+import com.shun.app.ui.events.ShowSearch;
+import com.shun.app.ui.search.SearchActivity;
 import javax.inject.Inject;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -51,6 +53,12 @@ public abstract class BaseActivity extends Activity {
       startActivity(intent);
     }
   }
+
+  @Subscribe public void onShowSearch(ShowSearch event) {
+    Intent intent = SearchActivity.createIntent(this);
+    startActivity(intent);
+  }
+
   protected void setupComponent(@NonNull AppComponent appComponent) {
     appComponent.inject(this);
   }

@@ -1,7 +1,12 @@
 package com.shun.app.domain.catalog;
 
+import android.support.annotation.NonNull;
+import com.annimon.stream.Optional;
+import com.annimon.stream.Stream;
 import com.shun.app.domain.models.Movie;
+import com.shun.app.domain.models.Video;
 import com.uwetrottmann.tmdb.Tmdb;
+import com.uwetrottmann.tmdb.entities.Videos;
 import java.util.List;
 import rx.Observable;
 
@@ -20,5 +25,19 @@ public class TmdbCatalogManager implements CatalogManager {
     return tmdbManager.moviesService()
         .popular(page, null)
         .map(TmdbMapper::mapMovieResultsPage);
+  }
+
+  @Override public Observable<Video> movieTrailer(Movie movie) {
+    return tmdbManager.moviesService()
+        .videos(movie.getId(), null)
+        .map(TmdbCatalogManager::findYouTubeTrailer)
+        .map(TmdbMapper::mapVideo);
+  }
+
+  private static Optional<Videos.Video> findYouTubeTrailer(@NonNull Videos videos) {
+    return Stream.of(videos.results)
+        .filter(
+            video -> video.type.equals(Video.TYPE_TRAILER) && video.site.equals(Video.SITE_YOUTUBE))
+        .findFirst();
   }
 }

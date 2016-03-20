@@ -3,7 +3,9 @@ package com.shun.app.ui.main;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import com.shun.app.domain.catalog.CatalogManager;
+import com.shun.app.domain.models.MediaItem;
 import com.shun.app.ui.common.BaseFragmentPresenter;
+import com.shun.app.ui.events.ShowMediaItemDetails;
 import com.shun.app.ui.viewmodels.MediaItemViewModel;
 import com.shun.app.ui.viewmodels.MovieViewModel;
 import java.util.List;
@@ -70,12 +72,17 @@ public class MainPresenterImpl extends BaseFragmentPresenter<MainView> implement
   }
 
   @Override public void selectItem(MediaItemViewModel item) {
-    backgroundUri = item.getBackdropUri();
-    startBackgroundTimer();
+    if (item != null) {
+      backgroundUri = item.getBackdropUri();
+      startBackgroundTimer();
+    }
   }
 
   @Override public void clickItem(MediaItemViewModel item) {
-
+    if (item != null) {
+      MediaItem mediaItem = item.getMediaItem();
+      eventBus.post(new ShowMediaItemDetails(mediaItem));
+    }
   }
 
   private class UpdateBackgroundTask extends TimerTask {

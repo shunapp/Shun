@@ -2,4 +2,6 @@
   <string name="app_name">Shun</string>
 
   <string name="main.header.popular">Popular</string>
+  <string name="details.actions.watch">Watch</string>
+  <string name="details.actions.trailer">Trailer</string>
 </resources>

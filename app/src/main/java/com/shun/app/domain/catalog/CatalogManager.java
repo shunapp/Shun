@@ -6,9 +6,13 @@ import java.util.List;
 import rx.Observable;
 
 public interface CatalogManager {
-  Observable<List<Movie>> popularMovies(int page);
-
   Observable<List<Movie>> popularMovies();
 
+  Observable<List<Movie>> popularMovies(int page);
+
   Observable<Video> movieTrailer(Movie movie);
+
+  Observable<List<Movie>> searchMovies(String query);
+
+  Observable<List<Movie>> searchMovies(String query, int page);
 }

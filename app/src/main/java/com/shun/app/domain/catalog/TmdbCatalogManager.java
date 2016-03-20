@@ -34,6 +34,16 @@ public class TmdbCatalogManager implements CatalogManager {
         .map(TmdbMapper::mapVideo);
   }
 
+  @Override public Observable<List<Movie>> searchMovies(String query) {
+    return searchMovies(query, 1);
+  }
+
+  @Override public Observable<List<Movie>> searchMovies(String query, int page) {
+    return tmdbManager.searchService()
+        .movie(query, page, null, null, null, null, null)
+        .map(TmdbMapper::mapMovieResultsPage);
+  }
+
   private static Optional<Videos.Video> findYouTubeTrailer(@NonNull Videos videos) {
     return Stream.of(videos.results)
         .filter(
